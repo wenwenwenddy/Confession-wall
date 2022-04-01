@@ -18,8 +18,8 @@
 | Field    | Type         | Null | Key | Default | Extra          |
 +----------+--------------+------+-----+---------+----------------+
 | uid      | int          | NO   | PRI | NULL    | auto_increment |
-| userName | varchar(255) | NO   |     | NULL    |                |
-| passWord | varchar(255) | NO   |     | NULL    |                |
+| username | varchar(255) | NO   |     | NULL    |                |
+| password | varchar(255) | NO   |     | NULL    |                |
 +----------+--------------+------+-----+---------+----------------+
 ```
 

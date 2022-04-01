@@ -27,7 +27,7 @@ public class RegisterServlet extends HttpServlet {
         resp.setHeader("Access-Control-Allow-Methods", "GET,POST");
 
         ObjectMapper OM = new ObjectMapper();
-        UserdataBean jsonIn = OM.readValue(com.study.JSONReader.receivePost(req), UserdataBean.class);
+        UserdataBean jsonIn = OM.readValue(req.getInputStream(), UserdataBean.class);
         ServletOutputStream out = resp.getOutputStream();
 
         String username = jsonIn.getUsername();
