@@ -21,18 +21,18 @@ public class UserClass {
             re = psql.executeQuery();
             if (re.isBeforeFirst()) {
                 re.next();
-                if (re.getString("password") == password) {
-                    res = "success";
+                if (password.equals(re.getString("password"))) {
+                    res = "OK";
                 } else {
-                    res = "wrong password";
+                    res = "PASSWORD_ERROR";
                 }
             } else {
-                res = "wrong username";
+                res = "USERNAME_ERROR";
             }
             return res;
         } catch (SQLException e) {
             e.printStackTrace();
-            return "error";
+            return "SQL_ERROR";
         } finally {
             closeRe(re);
             closeStmt(psql);
@@ -50,19 +50,19 @@ public class UserClass {
             psql.setString(1, username);
             re = psql.executeQuery();
             if (re.isBeforeFirst()) {
-                res = "used username";
+                res = "USERNAME_ERROR";
             } else {
                 String sqlNew = "insert into userdata (username, password)" + "values(?, ?)";
                 psqlNew = conn.prepareStatement(sqlNew);
                 psqlNew.setString(1, username);
                 psqlNew.setString(2, password);
                 psqlNew.executeUpdate();
-                res = "success";
+                res = "OK";
             }
             return res;
         } catch (SQLException e) {
             e.printStackTrace();
-            return "error";
+            return "SQL_ERROR";
         } finally {
             closeStmt(psqlNew);
             closeRe(re);
