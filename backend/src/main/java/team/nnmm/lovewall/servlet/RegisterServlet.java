@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 /**
  * @author Patrick_Star
@@ -37,7 +38,7 @@ public class RegisterServlet extends HttpServlet {
         String res = UserClass.register(conn, username, password);
         SQLConn.disConn(conn);
 
-        MessageBean jsonOut = new MessageBean(res);
+        MessageBean jsonOut = new MessageBean(res, new ArrayList<>());
         out.print(OM.writeValueAsString(jsonOut));
     }
 }

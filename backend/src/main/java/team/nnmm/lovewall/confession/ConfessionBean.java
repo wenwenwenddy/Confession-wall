@@ -8,11 +8,20 @@ import java.sql.Date;
  * @version 1.0
  */
 public class ConfessionBean implements Serializable {
+    private int id;
     private int uid;
     private String username;
     private String content;
     private Date date;
     private String target;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getUid() {
         return uid;
@@ -57,7 +66,8 @@ public class ConfessionBean implements Serializable {
     public ConfessionBean() {
     }
 
-    public ConfessionBean(int uid, String username, String content, Date date, String target) {
+    public ConfessionBean(int id, int uid, String username, String content, Date date, String target) {
+        this.id = id;
         this.uid = uid;
         this.username = username;
         this.content = content;
