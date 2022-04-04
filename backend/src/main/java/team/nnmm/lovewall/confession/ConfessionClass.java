@@ -165,6 +165,38 @@ public class ConfessionClass {
         }
     }
 
+    public static String deleteConfession(Connection conn, ConfessionBean confession) {
+        PreparedStatement psql = null;
+        ResultSet re = null;
+        PreparedStatement psqlUpdate = null;
+        String res = null;
+        try {
+            String sql = "select * from contentdata where id = ?";
+            psql = conn.prepareStatement(sql);
+            psql.setInt(1, confession.getId());
+            re = psql.executeQuery();
+            if (re.isBeforeFirst()) {
+                java.util.Date date_ = new java.util.Date();
+                Date date = new Date(date_.getTime());
+                String sqlUpdate = "delete from contentdata where id = ?";
+                psqlUpdate = conn.prepareStatement(sqlUpdate);
+                psqlUpdate.setInt(1, confession.getId());
+                psqlUpdate.executeUpdate();
+                res = "OK";
+            } else {
+                res = "CONFESSION_ERROR";
+            }
+            return res;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "SQL_ERROR";
+        } finally {
+            SQLConn.closeStmt(psqlUpdate);
+            SQLConn.closeRe(re);
+            SQLConn.closeStmt(psql);
+        }
+    }
+
     public ConfessionClass() {
     }
 }

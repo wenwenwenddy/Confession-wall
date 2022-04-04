@@ -46,4 +46,13 @@
     <servlet-name>changeConfession</servlet-name>
     <url-pattern>/changeConfession</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>deleteConfession</servlet-name>
+    <servlet-class>team.nnmm.lovewall.servlet.DeleteConfessionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>deleteConfession</servlet-name>
+    <url-pattern>/deleteConfession</url-pattern>
+  </servlet-mapping>
 </web-app>
