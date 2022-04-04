@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * @author Patrick_Star
  * @version 1.0
  */
-public class AddConfessionServlet extends HttpServlet {
+public class ChangeConfessionServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         doPost(req, resp);
     }
@@ -32,13 +32,13 @@ public class AddConfessionServlet extends HttpServlet {
         ServletOutputStream out = resp.getOutputStream();
 
         Connection conn = SQLConn.conn();
-        String res = ConfessionClass.addConfession(conn, jsonIn);
+        String res = ConfessionClass.changeConfession(conn, jsonIn);
         SQLConn.disConn(conn);
 
         MessageBean jsonOut = new MessageBean(res, new ArrayList<>());
         out.print(OM.writeValueAsString(jsonOut));
     }
 
-    public AddConfessionServlet() {
+    public ChangeConfessionServlet() {
     }
 }

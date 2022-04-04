@@ -41,4 +41,7 @@ public class RegisterServlet extends HttpServlet {
         MessageBean jsonOut = new MessageBean(res, new ArrayList<>());
         out.print(OM.writeValueAsString(jsonOut));
     }
+
+    public RegisterServlet() {
+    }
 }

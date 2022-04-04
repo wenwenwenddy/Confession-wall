@@ -71,4 +71,7 @@ public class UserClass {
             SQLConn.closeStmt(psql);
         }
     }
+
+    private UserClass() {
+    }
 }
