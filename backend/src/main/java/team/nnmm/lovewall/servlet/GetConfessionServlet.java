@@ -4,11 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import team.nnmm.lovewall.confession.ConfessionBean;
 import team.nnmm.lovewall.confession.ConfessionClass;
 import team.nnmm.lovewall.sql.SQLConn;
-import team.nnmm.lovewall.user.UserClass;
-import team.nnmm.lovewall.user.UserdataBean;
 
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,12 +25,19 @@ public class GetConfessionServlet extends HttpServlet {
 
         ObjectMapper OM = new ObjectMapper();
         ServletOutputStream out = resp.getOutputStream();
+        MessageBean jsonOut = new MessageBean();
 
         Connection conn = SQLConn.conn();
         ArrayList res = ConfessionClass.getConfession(conn);
         SQLConn.disConn(conn);
 
-        MessageBean jsonOut = new MessageBean("OK", res);
+        if(res != null) {
+            jsonOut.setData(res);
+            jsonOut.setMessage("OK");
+        } else {
+            jsonOut.setData(new ArrayList<>());
+            jsonOut.setMessage("SQL_ERROR");
+        }
         out.print(OM.writeValueAsString(jsonOut));
     }
 
@@ -44,13 +48,23 @@ public class GetConfessionServlet extends HttpServlet {
 
         ObjectMapper OM = new ObjectMapper();
         ConfessionBean jsonIn = OM.readValue(req.getInputStream(), ConfessionBean.class);
+        MessageBean jsonOut = new MessageBean();
         ServletOutputStream out = resp.getOutputStream();
 
         Connection conn = SQLConn.conn();
         ArrayList res = ConfessionClass.getConfession(conn, jsonIn.getUsername());
         SQLConn.disConn(conn);
 
-        MessageBean jsonOut = new MessageBean(Integer.toString(res.size()), res);
+        if(res != null && res.size() != 0) {
+            jsonOut.setData(res);
+            jsonOut.setMessage("OK");
+        } else if(res.size() == 0) {
+            jsonOut.setData(new ArrayList<>());
+            jsonOut.setMessage("USERNAME_ERROR");
+        } else {
+            jsonOut.setData(new ArrayList<>());
+            jsonOut.setMessage("SQL_ERROR");
+        }
         out.print(OM.writeValueAsString(jsonOut));
     }
 

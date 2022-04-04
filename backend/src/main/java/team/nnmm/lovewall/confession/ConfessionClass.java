@@ -119,8 +119,6 @@ public class ConfessionClass {
                     res_.setDate(re.getDate("date"));
                     res.add(res_);
                 }
-            } else {
-                res = null;
             }
             return res;
         } catch (SQLException e) {
