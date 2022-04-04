@@ -15,7 +15,7 @@ public class ConfessionClass {
         PreparedStatement psql = null;
         ResultSet re = null;
         PreparedStatement psqlUpdate = null;
-        String res = null;
+        String res;
         try {
             String sql = "select * from userdata where username = ?";
             psql = conn.prepareStatement(sql);
