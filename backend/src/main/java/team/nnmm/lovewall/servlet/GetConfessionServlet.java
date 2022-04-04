@@ -38,7 +38,20 @@ public class GetConfessionServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        doGet(req, resp);
+        resp.setContentType("application/json;charset=utf-8");
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Methods", "GET,POST");
+
+        ObjectMapper OM = new ObjectMapper();
+        ConfessionBean jsonIn = OM.readValue(req.getInputStream(), ConfessionBean.class);
+        ServletOutputStream out = resp.getOutputStream();
+
+        Connection conn = SQLConn.conn();
+        ArrayList res = ConfessionClass.getConfession(conn, jsonIn.getUsername());
+        SQLConn.disConn(conn);
+
+        MessageBean jsonOut = new MessageBean(Integer.toString(res.size()), res);
+        out.print(OM.writeValueAsString(jsonOut));
     }
 
     public GetConfessionServlet() {

@@ -99,6 +99,39 @@ public class ConfessionClass {
         }
     }
 
+    public static ArrayList getConfession(Connection conn, String username) {
+        PreparedStatement psql = null;
+        ResultSet re = null;
+        ArrayList res = new ArrayList();
+        try {
+            String sql = "select * from contentdata where username = ?";
+            psql = conn.prepareStatement(sql);
+            psql.setString(1, username);
+            re = psql.executeQuery();
+            if (re.isBeforeFirst()) {
+                while (re.next()) {
+                    ConfessionBean res_ = new ConfessionBean();
+                    res_.setId(re.getInt("id"));
+                    res_.setUid(re.getInt("uid"));
+                    res_.setUsername(re.getString("username"));
+                    res_.setTarget(re.getString("target"));
+                    res_.setContent(re.getString("content"));
+                    res_.setDate(re.getDate("date"));
+                    res.add(res_);
+                }
+            } else {
+                res = null;
+            }
+            return res;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            SQLConn.closeRe(re);
+            SQLConn.closeStmt(psql);
+        }
+    }
+
     public static String changeConfession(Connection conn, ConfessionBean confession) {
         PreparedStatement psql = null;
         ResultSet re = null;
