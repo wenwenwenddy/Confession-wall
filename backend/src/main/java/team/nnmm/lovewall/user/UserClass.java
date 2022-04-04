@@ -1,5 +1,7 @@
 package team.nnmm.lovewall.user;
 
+import team.nnmm.lovewall.sql.SQLConn;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,8 +36,8 @@ public class UserClass {
             e.printStackTrace();
             return "SQL_ERROR";
         } finally {
-            closeRe(re);
-            closeStmt(psql);
+            SQLConn.closeRe(re);
+            SQLConn.closeStmt(psql);
         }
     }
 
@@ -64,29 +66,9 @@ public class UserClass {
             e.printStackTrace();
             return "SQL_ERROR";
         } finally {
-            closeStmt(psqlNew);
-            closeRe(re);
-            closeStmt(psql);
-        }
-    }
-
-    private static void closeStmt(PreparedStatement psql) {
-        if (psql != null) {
-            try {
-                psql.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private static void closeRe(ResultSet re) {
-        if (re != null) {
-            try {
-                re.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            SQLConn.closeStmt(psqlNew);
+            SQLConn.closeRe(re);
+            SQLConn.closeStmt(psql);
         }
     }
 }

@@ -1,5 +1,7 @@
 package team.nnmm.lovewall.confession;
 
+import team.nnmm.lovewall.sql.SQLConn;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Random;
@@ -41,9 +43,9 @@ public class ConfessionClass {
             e.printStackTrace();
             return "SQL_ERROR";
         } finally {
-            closeStmt(psqlUpdate);
-            closeRe(re);
-            closeStmt(psql);
+            SQLConn.closeStmt(psqlUpdate);
+            SQLConn.closeRe(re);
+            SQLConn.closeStmt(psql);
         }
     }
 
@@ -61,6 +63,7 @@ public class ConfessionClass {
             psql = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             re = psql.executeQuery();
             if (re.isBeforeFirst()) {
+                // 获取所有表内表白的条数，然后随机获得最多九条表白
                 re.last();
                 length = re.getRow();
                 re.beforeFirst();
@@ -91,28 +94,8 @@ public class ConfessionClass {
             e.printStackTrace();
             return null;
         } finally {
-            closeRe(re);
-            closeStmt(psql);
-        }
-    }
-
-    private static void closeStmt(PreparedStatement psql) {
-        if (psql != null) {
-            try {
-                psql.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private static void closeRe(ResultSet re) {
-        if (re != null) {
-            try {
-                re.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            SQLConn.closeRe(re);
+            SQLConn.closeStmt(psql);
         }
     }
 }

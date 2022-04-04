@@ -1,8 +1,6 @@
 package team.nnmm.lovewall.sql;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * @author Patrick_Star
@@ -36,7 +34,26 @@ public class SQLConn {
         }
     }
 
-    public SQLConn() {
+    public static void closeStmt(PreparedStatement psql) {
+        if (psql != null) {
+            try {
+                psql.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
+    public static void closeRe(ResultSet re) {
+        if (re != null) {
+            try {
+                re.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public SQLConn() {
     }
 }
