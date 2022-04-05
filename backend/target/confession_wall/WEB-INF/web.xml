@@ -55,4 +55,13 @@
     <servlet-name>deleteConfession</servlet-name>
     <url-pattern>/deleteConfession</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>addComment</servlet-name>
+    <servlet-class>team.nnmm.lovewall.servlet.AddCommentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>addComment</servlet-name>
+    <url-pattern>/addComment</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -129,7 +129,7 @@ public class ConfessionClass {
         }
     }
 
-    private static String fetchConfession(Connection conn, int id) {
+    public static String fetchConfession(Connection conn, int id) {
         PreparedStatement psql = null;
         ResultSet re = null;
         String res;
@@ -139,6 +139,7 @@ public class ConfessionClass {
             psql.setInt(1, id);
             re = psql.executeQuery();
             if (re.isBeforeFirst()) {
+                re.next();
                 res = "OK";
             } else {
                 res = "CONFESSION_ERROR";
