@@ -26,7 +26,7 @@ public class ConfessionClass {
                 int uid = re.getInt("uid");
                 java.util.Date date_ = new java.util.Date();
                 Date date = new Date(date_.getTime());
-                String sqlUpdate = "insert into contentdata (uid, username, content, date, target)" + "values(?, ?, ?, ?, ?)";
+                String sqlUpdate = "insert into confessiondata (uid, username, content, date, target)" + "values(?, ?, ?, ?, ?)";
                 psqlUpdate = conn.prepareStatement(sqlUpdate);
                 psqlUpdate.setInt(1, uid);
                 psqlUpdate.setString(2, confession.getUsername());
@@ -58,7 +58,7 @@ public class ConfessionClass {
         ArrayList<Integer> arr = new ArrayList<>();
         int length = 0;
         try {
-            String sql = "select * from contentdata";
+            String sql = "select * from confessiondata";
             psql = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             re = psql.executeQuery();
             if (re.isBeforeFirst()) {
@@ -103,7 +103,7 @@ public class ConfessionClass {
         ResultSet re = null;
         ArrayList res = new ArrayList();
         try {
-            String sql = "select * from contentdata where username = ?";
+            String sql = "select * from confessiondata where username = ?";
             psql = conn.prepareStatement(sql);
             psql.setString(1, username);
             re = psql.executeQuery();
@@ -134,7 +134,7 @@ public class ConfessionClass {
         ResultSet re = null;
         String res;
         try {
-            String sql = "select * from contentdata where id = ?";
+            String sql = "select * from confessiondata where id = ?";
             psql = conn.prepareStatement(sql);
             psql.setInt(1, id);
             re = psql.executeQuery();
@@ -161,7 +161,7 @@ public class ConfessionClass {
             if ("OK".equals(res)) {
                 java.util.Date date_ = new java.util.Date();
                 Date date = new Date(date_.getTime());
-                String sqlUpdate = "update contentdata set `content` = ?, `date` = ?, `target` = ? where id = ?";
+                String sqlUpdate = "update confessiondata set `content` = ?, `date` = ?, `target` = ? where id = ?";
                 psqlUpdate = conn.prepareStatement(sqlUpdate);
                 psqlUpdate.setString(1, confession.getContent());
                 psqlUpdate.setDate(2, date);
@@ -184,7 +184,7 @@ public class ConfessionClass {
         try {
             res = fetchConfession(conn, confession.getId());
             if ("OK".equals(res)) {
-                String sqlUpdate = "delete from contentdata where id = ?";
+                String sqlUpdate = "delete from confessiondata where id = ?";
                 psqlUpdate = conn.prepareStatement(sqlUpdate);
                 psqlUpdate.setInt(1, confession.getId());
                 psqlUpdate.executeUpdate();
