@@ -133,4 +133,24 @@ public class CommentClass {
             SQLConn.closeStmt(psqlUpdate);
         }
     }
+
+    public static String deleteComment(Connection conn, CommentBean comment) {
+        PreparedStatement psqlUpdate = null;
+        String res;
+        try {
+            res = fetchComment(conn, comment.getId());
+            if ("OK".equals(res)) {
+                String sqlUpdate = "delete from commentdata where id = ?";
+                psqlUpdate = conn.prepareStatement(sqlUpdate);
+                psqlUpdate.setInt(1, comment.getId());
+                psqlUpdate.executeUpdate();
+            }
+            return res;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "SQL_ERROR";
+        } finally {
+            SQLConn.closeStmt(psqlUpdate);
+        }
+    }
 }

@@ -82,4 +82,13 @@
     <servlet-name>changeComment</servlet-name>
     <url-pattern>/changeComment</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>deleteComment</servlet-name>
+    <servlet-class>team.nnmm.lovewall.servlet.DeleteCommentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>deleteComment</servlet-name>
+    <url-pattern>/deleteComment</url-pattern>
+  </servlet-mapping>
 </web-app>
