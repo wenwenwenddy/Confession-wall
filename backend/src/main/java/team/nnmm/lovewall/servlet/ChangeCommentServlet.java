@@ -1,8 +1,8 @@
 package team.nnmm.lovewall.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import team.nnmm.lovewall.confession.ConfessionBean;
-import team.nnmm.lovewall.confession.ConfessionClass;
+import team.nnmm.lovewall.comment.CommentBean;
+import team.nnmm.lovewall.comment.CommentClass;
 import team.nnmm.lovewall.sql.SQLConn;
 
 import javax.servlet.ServletOutputStream;
@@ -16,7 +16,7 @@ import java.sql.Connection;
  * @author Patrick_Star
  * @version 1.0
  */
-public class AddConfessionServlet extends HttpServlet {
+public class ChangeCommentServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         doPost(req, resp);
     }
@@ -27,17 +27,17 @@ public class AddConfessionServlet extends HttpServlet {
         resp.setHeader("Access-Control-Allow-Methods", "GET,POST");
 
         ObjectMapper OM = new ObjectMapper();
-        ConfessionBean jsonIn = OM.readValue(req.getInputStream(), ConfessionBean.class);
+        CommentBean jsonIn = OM.readValue(req.getInputStream(), CommentBean.class);
         ServletOutputStream out = resp.getOutputStream();
 
         Connection conn = SQLConn.conn();
-        String res = ConfessionClass.addConfession(conn, jsonIn);
+        String res = CommentClass.changeComment(conn, jsonIn);
         SQLConn.disConn(conn);
 
         MessageBean jsonOut = new MessageBean(res);
         out.print(OM.writeValueAsString(jsonOut));
     }
 
-    public AddConfessionServlet() {
+    public ChangeCommentServlet() {
     }
 }

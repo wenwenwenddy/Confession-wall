@@ -1,6 +1,5 @@
 package team.nnmm.lovewall.comment;
 
-import team.nnmm.lovewall.confession.ConfessionBean;
 import team.nnmm.lovewall.confession.ConfessionClass;
 import team.nnmm.lovewall.sql.SQLConn;
 
@@ -83,6 +82,55 @@ public class CommentClass {
         } finally {
             SQLConn.closeRe(re);
             SQLConn.closeStmt(psql);
+        }
+    }
+
+    public static String fetchComment(Connection conn, int id) {
+        PreparedStatement psql = null;
+        ResultSet re = null;
+        String res;
+        try {
+            String sql = "select * from commentdata where id = ?";
+            psql = conn.prepareStatement(sql);
+            psql.setInt(1, id);
+            re = psql.executeQuery();
+            if (re.isBeforeFirst()) {
+                re.next();
+                res = "OK";
+            } else {
+                res = "COMMENT_ERROR";
+            }
+            return res;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "SQL_ERROR";
+        } finally {
+            SQLConn.closeRe(re);
+            SQLConn.closeStmt(psql);
+        }
+    }
+
+    public static String changeComment(Connection conn, CommentBean comment) {
+        PreparedStatement psqlUpdate = null;
+        String res;
+        try {
+            res = fetchComment(conn, comment.getId());
+            if ("OK".equals(res)) {
+                java.util.Date date_ = new java.util.Date();
+                Date date = new Date(date_.getTime());
+                String sqlUpdate = "update commentdata set `content` = ?, `date` = ? where id = ?";
+                psqlUpdate = conn.prepareStatement(sqlUpdate);
+                psqlUpdate.setString(1, comment.getContent());
+                psqlUpdate.setDate(2, date);
+                psqlUpdate.setInt(3, comment.getId());
+                psqlUpdate.executeUpdate();
+            }
+            return res;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "SQL_ERROR";
+        } finally {
+            SQLConn.closeStmt(psqlUpdate);
         }
     }
 }

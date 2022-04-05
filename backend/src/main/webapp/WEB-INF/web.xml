@@ -73,4 +73,13 @@
     <servlet-name>getComment</servlet-name>
     <url-pattern>/getComment</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>changeComment</servlet-name>
+    <servlet-class>team.nnmm.lovewall.servlet.ChangeCommentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>changeComment</servlet-name>
+    <url-pattern>/changeComment</url-pattern>
+  </servlet-mapping>
 </web-app>
