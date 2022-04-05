@@ -1,9 +1,11 @@
 package team.nnmm.lovewall.comment;
 
+import team.nnmm.lovewall.confession.ConfessionBean;
 import team.nnmm.lovewall.confession.ConfessionClass;
 import team.nnmm.lovewall.sql.SQLConn;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * @author Patrick_Star
@@ -48,6 +50,37 @@ public class CommentClass {
             return "SQL_ERROR";
         } finally {
             SQLConn.closeStmt(psqlUpdate);
+            SQLConn.closeRe(re);
+            SQLConn.closeStmt(psql);
+        }
+    }
+
+    public static ArrayList getComment(Connection conn, int confessionId) {
+        PreparedStatement psql = null;
+        ResultSet re = null;
+        ArrayList res = new ArrayList();
+        try {
+            String sql = "select * from commentdata where confessionId = ?";
+            psql = conn.prepareStatement(sql);
+            psql.setInt(1, confessionId);
+            re = psql.executeQuery();
+            if (re.isBeforeFirst()) {
+                while (re.next()) {
+                    CommentBean res_ = new CommentBean();
+                    res_.setId(re.getInt("id"));
+                    res_.setUid(re.getInt("uid"));
+                    res_.setUsername(re.getString("username"));
+                    res_.setConfessionId(confessionId);
+                    res_.setContent(re.getString("content"));
+                    res_.setDate(re.getDate("date"));
+                    res.add(res_);
+                }
+            }
+            return res;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
             SQLConn.closeRe(re);
             SQLConn.closeStmt(psql);
         }

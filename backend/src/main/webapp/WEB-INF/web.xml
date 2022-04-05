@@ -64,4 +64,13 @@
     <servlet-name>addComment</servlet-name>
     <url-pattern>/addComment</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>getComment</servlet-name>
+    <servlet-class>team.nnmm.lovewall.servlet.GetCommentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getComment</servlet-name>
+    <url-pattern>/getComment</url-pattern>
+  </servlet-mapping>
 </web-app>
