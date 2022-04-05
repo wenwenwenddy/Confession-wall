@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import team.nnmm.lovewall.confession.ConfessionBean;
 import team.nnmm.lovewall.confession.ConfessionClass;
 import team.nnmm.lovewall.sql.SQLConn;
+import team.nnmm.lovewall.user.UserClass;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -54,17 +55,25 @@ public class GetConfessionServlet extends HttpServlet {
         ServletOutputStream out = resp.getOutputStream();
 
         Connection conn = SQLConn.conn();
-        ArrayList res = ConfessionClass.getConfession(conn, jsonIn.getUsername());
+        String resUser = UserClass.login(conn, jsonIn.getUsername(), "");
+        ArrayList res = new ArrayList();
+        if("PASSWORD_ERROR".equals(resUser)) {
+            res = ConfessionClass.getConfession(conn, jsonIn.getUsername());
+        }
         SQLConn.disConn(conn);
 
-        if(res != null && res.size() != 0) {
+        if("PASSWORD_ERROR".equals(resUser) & res != null && res.size() != 0) {
             jsonOut.setLength(res.size());
             jsonOut.setData(res);
             jsonOut.setMessage("OK");
-        } else if(res.size() == 0) {
+        } else if("USERNAME_ERROR".equals(resUser)) {
             jsonOut.setLength(0);
             jsonOut.setData(new ArrayList<>());
             jsonOut.setMessage("USERNAME_ERROR");
+        } else if(!"SQL_ERROR".equals(resUser) & res.size() == 0) {
+            jsonOut.setLength(0);
+            jsonOut.setData(new ArrayList<>());
+            jsonOut.setMessage("EMPTY");
         } else {
             jsonOut.setLength(0);
             jsonOut.setData(new ArrayList<>());

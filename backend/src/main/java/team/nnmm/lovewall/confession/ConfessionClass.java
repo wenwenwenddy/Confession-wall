@@ -57,7 +57,6 @@ public class ConfessionClass {
         Random rand = new Random(t);
         ArrayList<Integer> arr = new ArrayList<>();
         int length = 0;
-
         try {
             String sql = "select * from contentdata";
             psql = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -130,17 +129,36 @@ public class ConfessionClass {
         }
     }
 
-    public static String changeConfession(Connection conn, ConfessionBean confession) {
+    private static String fetchConfession(Connection conn, int id) {
         PreparedStatement psql = null;
         ResultSet re = null;
-        PreparedStatement psqlUpdate = null;
-        String res = null;
+        String res;
         try {
             String sql = "select * from contentdata where id = ?";
             psql = conn.prepareStatement(sql);
-            psql.setInt(1, confession.getId());
+            psql.setInt(1, id);
             re = psql.executeQuery();
             if (re.isBeforeFirst()) {
+                res = "OK";
+            } else {
+                res = "CONFESSION_ERROR";
+            }
+            return res;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "SQL_ERROR";
+        } finally {
+            SQLConn.closeRe(re);
+            SQLConn.closeStmt(psql);
+        }
+    }
+
+    public static String changeConfession(Connection conn, ConfessionBean confession) {
+        PreparedStatement psqlUpdate = null;
+        String res;
+        try {
+            res = fetchConfession(conn, confession.getId());
+            if ("OK".equals(res)) {
                 java.util.Date date_ = new java.util.Date();
                 Date date = new Date(date_.getTime());
                 String sqlUpdate = "update contentdata set `content` = ?, `date` = ?, `target` = ? where id = ?";
@@ -150,9 +168,6 @@ public class ConfessionClass {
                 psqlUpdate.setString(3, confession.getTarget());
                 psqlUpdate.setInt(4, confession.getId());
                 psqlUpdate.executeUpdate();
-                res = "OK";
-            } else {
-                res = "CONFESSION_ERROR";
             }
             return res;
         } catch (SQLException e) {
@@ -160,31 +175,19 @@ public class ConfessionClass {
             return "SQL_ERROR";
         } finally {
             SQLConn.closeStmt(psqlUpdate);
-            SQLConn.closeRe(re);
-            SQLConn.closeStmt(psql);
         }
     }
 
     public static String deleteConfession(Connection conn, ConfessionBean confession) {
-        PreparedStatement psql = null;
-        ResultSet re = null;
         PreparedStatement psqlUpdate = null;
-        String res = null;
+        String res;
         try {
-            String sql = "select * from contentdata where id = ?";
-            psql = conn.prepareStatement(sql);
-            psql.setInt(1, confession.getId());
-            re = psql.executeQuery();
-            if (re.isBeforeFirst()) {
-                java.util.Date date_ = new java.util.Date();
-                Date date = new Date(date_.getTime());
+            res = fetchConfession(conn, confession.getId());
+            if ("OK".equals(res)) {
                 String sqlUpdate = "delete from contentdata where id = ?";
                 psqlUpdate = conn.prepareStatement(sqlUpdate);
                 psqlUpdate.setInt(1, confession.getId());
                 psqlUpdate.executeUpdate();
-                res = "OK";
-            } else {
-                res = "CONFESSION_ERROR";
             }
             return res;
         } catch (SQLException e) {
@@ -192,8 +195,6 @@ public class ConfessionClass {
             return "SQL_ERROR";
         } finally {
             SQLConn.closeStmt(psqlUpdate);
-            SQLConn.closeRe(re);
-            SQLConn.closeStmt(psql);
         }
     }
 

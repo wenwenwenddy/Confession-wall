@@ -15,7 +15,7 @@ public class UserClass {
     public static String login(Connection conn, String username, String password) {
         PreparedStatement psql = null;
         ResultSet re = null;
-        String res = null;
+        String res;
         try {
             String sql = "select * from userdata where username = ?";
             psql = conn.prepareStatement(sql);
@@ -42,18 +42,13 @@ public class UserClass {
     }
 
     public static String register (Connection conn, String username, String password){
-        PreparedStatement psql = null;
-        ResultSet re = null;
-        String res = null;
+        String res;
         PreparedStatement psqlNew = null;
         try {
-            String sql = "select * from userdata where username = ?";
-            psql = conn.prepareStatement(sql);
-            psql.setString(1, username);
-            re = psql.executeQuery();
-            if (re.isBeforeFirst()) {
+            res = login(conn, username, "");
+            if ("PASSWORD_ERROR".equals(res)) {
                 res = "USERNAME_ERROR";
-            } else {
+            } else if(!"SQL_ERROR".equals(res)) {
                 String sqlNew = "insert into userdata (username, password)" + "values(?, ?)";
                 psqlNew = conn.prepareStatement(sqlNew);
                 psqlNew.setString(1, username);
@@ -67,8 +62,6 @@ public class UserClass {
             return "SQL_ERROR";
         } finally {
             SQLConn.closeStmt(psqlNew);
-            SQLConn.closeRe(re);
-            SQLConn.closeStmt(psql);
         }
     }
 
