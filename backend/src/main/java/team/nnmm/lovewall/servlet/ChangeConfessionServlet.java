@@ -35,7 +35,7 @@ public class ChangeConfessionServlet extends HttpServlet {
         String res = ConfessionClass.changeConfession(conn, jsonIn);
         SQLConn.disConn(conn);
 
-        MessageBean jsonOut = new MessageBean(res, new ArrayList<>());
+        MessageBean jsonOut = new MessageBean(res);
         out.print(OM.writeValueAsString(jsonOut));
     }
 

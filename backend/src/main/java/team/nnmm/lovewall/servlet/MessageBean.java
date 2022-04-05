@@ -9,15 +9,6 @@ import java.util.ArrayList;
  */
 public class MessageBean implements Serializable {
     private String message;
-    private ArrayList data;
-
-    public ArrayList getData() {
-        return data;
-    }
-
-    public void setData(ArrayList data) {
-        this.data = data;
-    }
 
     public String getMessage() {
         return message;
@@ -30,8 +21,7 @@ public class MessageBean implements Serializable {
     public MessageBean() {
     }
 
-    public MessageBean(String message, ArrayList data) {
+    public MessageBean(String message) {
         this.message = message;
-        this.data = data;
     }
 }

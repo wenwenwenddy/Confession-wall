@@ -35,7 +35,7 @@ public class DeleteConfessionServlet extends HttpServlet {
         String res = ConfessionClass.deleteConfession(conn, jsonIn);
         SQLConn.disConn(conn);
 
-        MessageBean jsonOut = new MessageBean(res, new ArrayList<>());
+        MessageBean jsonOut = new MessageBean(res);
         out.print(OM.writeValueAsString(jsonOut));
     }
 

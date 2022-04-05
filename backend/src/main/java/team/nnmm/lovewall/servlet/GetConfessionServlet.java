@@ -25,16 +25,18 @@ public class GetConfessionServlet extends HttpServlet {
 
         ObjectMapper OM = new ObjectMapper();
         ServletOutputStream out = resp.getOutputStream();
-        MessageBean jsonOut = new MessageBean();
+        DataBean jsonOut = new DataBean();
 
         Connection conn = SQLConn.conn();
         ArrayList res = ConfessionClass.getConfession(conn);
         SQLConn.disConn(conn);
 
         if(res != null) {
+            jsonOut.setLength(res.size());
             jsonOut.setData(res);
             jsonOut.setMessage("OK");
         } else {
+            jsonOut.setLength(0);
             jsonOut.setData(new ArrayList<>());
             jsonOut.setMessage("SQL_ERROR");
         }
@@ -48,7 +50,7 @@ public class GetConfessionServlet extends HttpServlet {
 
         ObjectMapper OM = new ObjectMapper();
         ConfessionBean jsonIn = OM.readValue(req.getInputStream(), ConfessionBean.class);
-        MessageBean jsonOut = new MessageBean();
+        DataBean jsonOut = new DataBean();
         ServletOutputStream out = resp.getOutputStream();
 
         Connection conn = SQLConn.conn();
@@ -56,12 +58,15 @@ public class GetConfessionServlet extends HttpServlet {
         SQLConn.disConn(conn);
 
         if(res != null && res.size() != 0) {
+            jsonOut.setLength(res.size());
             jsonOut.setData(res);
             jsonOut.setMessage("OK");
         } else if(res.size() == 0) {
+            jsonOut.setLength(0);
             jsonOut.setData(new ArrayList<>());
             jsonOut.setMessage("USERNAME_ERROR");
         } else {
+            jsonOut.setLength(0);
             jsonOut.setData(new ArrayList<>());
             jsonOut.setMessage("SQL_ERROR");
         }

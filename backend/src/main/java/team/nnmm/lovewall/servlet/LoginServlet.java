@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
 
         SQLConn.disConn(conn);
 
-        MessageBean jsonOut = new MessageBean(res, new ArrayList<>());
+        MessageBean jsonOut = new MessageBean(res);
         out.print(OM.writeValueAsString(jsonOut));
     }
 

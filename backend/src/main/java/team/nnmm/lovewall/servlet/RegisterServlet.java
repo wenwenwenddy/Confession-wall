@@ -38,7 +38,7 @@ public class RegisterServlet extends HttpServlet {
         String res = UserClass.register(conn, username, password);
         SQLConn.disConn(conn);
 
-        MessageBean jsonOut = new MessageBean(res, new ArrayList<>());
+        MessageBean jsonOut = new MessageBean(res);
         out.print(OM.writeValueAsString(jsonOut));
     }
 
