@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+    <servlet-name>Register</servlet-name>
+    <servlet-class>team.nnmm.lovewall.servlet.RegisterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Register</servlet-name>
+    <url-pattern>/register</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>team.nnmm.lovewall.servlet.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>addConfession</servlet-name>
+    <servlet-class>team.nnmm.lovewall.servlet.AddConfessionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>addConfession</servlet-name>
+    <url-pattern>/addConfession</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>getConfession</servlet-name>
+    <servlet-class>team.nnmm.lovewall.servlet.GetConfessionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getConfession</servlet-name>
+    <url-pattern>/getConfession</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>changeConfession</servlet-name>
+    <servlet-class>team.nnmm.lovewall.servlet.ChangeConfessionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>changeConfession</servlet-name>
+    <url-pattern>/changeConfession</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>deleteConfession</servlet-name>
+    <servlet-class>team.nnmm.lovewall.servlet.DeleteConfessionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>deleteConfession</servlet-name>
+    <url-pattern>/deleteConfession</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>addComment</servlet-name>
+    <servlet-class>team.nnmm.lovewall.servlet.AddCommentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>addComment</servlet-name>
+    <url-pattern>/addComment</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>getComment</servlet-name>
+    <servlet-class>team.nnmm.lovewall.servlet.GetCommentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getComment</servlet-name>
+    <url-pattern>/getComment</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>changeComment</servlet-name>
+    <servlet-class>team.nnmm.lovewall.servlet.ChangeCommentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>changeComment</servlet-name>
+    <url-pattern>/changeComment</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>deleteComment</servlet-name>
+    <servlet-class>team.nnmm.lovewall.servlet.DeleteCommentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>deleteComment</servlet-name>
+    <url-pattern>/deleteComment</url-pattern>
+  </servlet-mapping>
+</web-app>
