@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表白墙</title>
+    <style>
+        * {
+            margin : 0;
+            padding : 0;
+            box-sizing: border-box;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .clearfix:before,.clearfix:after {
+            content:"";
+            display:table; 
+        }
+
+        .clearfix:after {
+            clear:both;
+        }
+
+        body {
+            background: url(./src/img/couple-bicycle.jpg) no-repeat ;
+            background-size: cover;
+            background-attachment: fixed;
+            height: 100%;
+        }
+
+        div {
+            display: block;
+        }
+
+        .header {
+            background-color: aliceblue;
+            opacity: 80%;
+            height: 70px;
+            width: 100%;
+            top: 0;
+            position: fixed;
+        }
+
+        .logo {
+            margin-left: 100px;
+            float: left;
+        }
+        
+       .user {
+           float: right;
+           margin-right: 100px;
+       }
+
+        .wrapper {
+            margin : 0 auto;
+            width: 1200px;
+        }
+        
+        .login{
+            overflow: hidden;
+            width: 418px;
+            height: 312px;
+            background-color: #fff;
+            border-radius: 6px;
+            box-shadow: 2px 2px rgb(0 0 0 / 10%);
+            top: 100px;
+            border: 2px solid #eee;
+            position: absolute;
+            top: 25%;
+            right: 10%;
+            padding:20px;
+        }
+
+        .load .title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            color: #333;
+            margin-top: 20px;
+            margin-bottom: 28px;
+        }
+
+        .load .uinArea, .load .pwdArea {
+            height: 55px;
+            position: relative;
+            margin-top: 8px;
+        }
+
+        input[type=text]:focus {
+            outline: none;
+        }
+
+        .inputstyle {
+            width: 272px;
+            height: 42px;
+            margin: 5px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 0 10px 10px;
+            line-height: 16px;
+            font-size: 14px;
+            border: none;
+            background-color:rgba(232, 240, 254);
+            border-radius: 2px;
+            box-shadow: 2px 2px 2px 0 rgba(211, 213, 216, 0.7) , -2px 2px 2px 0 rgba(211, 213, 216, 0.7) , 2px -2px 2px 0 rgba(211, 213, 216, 0.7) , -2px -2px 2px 0 rgba(211, 213, 216, 0.7);
+            color: #aaa;
+            font-family: Verdana,Tahoma,Arial;
+        }
+
+        .inputstyle:focus {
+            box-shadow: 2px 2px 2px 0 rgba(194, 226, 254,0.7) , -2px 2px 2px 0 rgba(194, 226, 254,0.7) , 2px -2px 2px 0 rgba(194, 226, 254,0.7) , -2px -2px 2px 0 rgba(194, 226, 254,0.7)
+
+        }
+        
+        .input_tips {
+            position: absolute;
+            top: 13px;
+            left: 60px;
+            font-size: 14px;
+            line-height: 16px;
+            color: #aaa;
+            cursor: text;
+        }
+
+        .load input[type=submit] {
+            margin: 10px auto;
+            width: 272px;
+            height: 42px;
+            background-color: rgb(134, 206, 47);
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center; 
+        }
+
+        .load .bottom {
+            height: 16px;
+            margin-bottom: 8px;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            right: 10px;
+            text-align: right;
+            font-size: 12px;
+        }
+
+        form {
+            margin: 0 auto;
+        }
+       
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class = "logo">
+            <a href=""> <img src="./src/img/表白墙_www.skyfont.com.png" alt=""></a>
+        </h1>
+        <div class = "user">
+            <div>头像</div>
+            <div>请登录</div>
+        </div>
+    </div>
+    <div class="login">
+
+        <div class="load">
+            <div class="title">开启爱之旅</div>
+            <form action="" id = "load">
+                <div class="uinArea">
+                    <label class="input_tips" for="u">请输入账号</label>
+                    <input type="text" class="inputstyle" id="u" >
+                </div>
+
+                <div class="pwdArea">
+                    <label class="input_tips" for="v">请输入密码</label>
+                    <input type="text" class="inputstyle" id="v">
+                </div>
+
+                <div>
+                    <input type="submit" value="确认登录">
+                </div>
+            </form>
+
+            <div class="bottom">
+                <a href="" class="link" id="forgeted">忘记密码</a>
+                <span class="doted">|</span>
+                <a href="javascript:void(0);" class="link" id="register">注册账号</a>
+            </div>
+        </div>
+
+        <div class="register"  style="display: none;">
+            <div class="title">注册账号</div>
+            <form action="">
+                <div class="uniArea">
+                    <input type="text" class="inputstyle">
+                </div>
+
+                <div class="fstpwd">
+                    <input type="password" class="inputstyle" value="请输入密码">
+                    <input type="password" class="inputstyle" value="再次输入密码">
+                </div>
+        </form>
+        </div>
+
+    </div>
+
+
+<script>
+    var rgt = document.querySelector('.register')
+    var load = document.querySelector('.load')
+    var toRgt = document.querySelector('#register')
+    toRgt.addEventListener("click",function(){
+        rgt.style.display = "block"
+        load.style.display = "none"
+    })
+</script>
+</body>
+</html>                                                                              
