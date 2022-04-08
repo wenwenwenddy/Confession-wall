@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>表白墙</title>
+    <script src="./src/lib/jQuery.min.js"></script>
     <style>
         * {
             margin : 0;
@@ -79,7 +80,7 @@
             padding:20px;
         }
 
-        .load .title {
+        .load_area .title {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -89,7 +90,7 @@
             margin-bottom: 28px;
         }
 
-        .load .uinArea, .load .pwdArea {
+        .load_area .uinArea, .load_area .pwdArea {
             height: 55px;
             position: relative;
             margin-top: 8px;
@@ -132,7 +133,7 @@
             cursor: text;
         }
 
-        .load input[type=submit] {
+        .load_area input[type=submit] {
             margin: 10px auto;
             width: 272px;
             height: 42px;
@@ -145,7 +146,7 @@
             justify-content: center; 
         }
 
-        .load .bottom {
+        .load_area .bottom {
             height: 16px;
             margin-bottom: 8px;
             width: 100%;
@@ -175,21 +176,21 @@
     </div>
     <div class="login">
 
-        <div class="load">
+        <div class="load_area">
             <div class="title">开启爱之旅</div>
-            <form action="" id = "load">
+            <form action="" id = "load_form">
                 <div class="uinArea">
                     <label class="input_tips" for="u">请输入账号</label>
-                    <input type="text" class="inputstyle" id="u" >
+                    <input type="text" class="inputstyle" id="u" name="username">
                 </div>
 
                 <div class="pwdArea">
                     <label class="input_tips" for="v">请输入密码</label>
-                    <input type="text" class="inputstyle" id="v">
+                    <input type="text" class="inputstyle" id="v" name="password">
                 </div>
 
                 <div>
-                    <input type="submit" value="确认登录">
+                    <input type="submit" value="确认登录" id="load_submit">
                 </div>
             </form>
 
@@ -219,11 +220,37 @@
 
 <script>
     var rgt = document.querySelector('.register')
-    var load = document.querySelector('.load')
+    var load_area = document.querySelector('.load_area')
     var toRgt = document.querySelector('#register')
     toRgt.addEventListener("click",function(){
         rgt.style.display = "block"
-        load.style.display = "none"
+        load_area.style.display = "none"
+    })
+
+    // var input = document.querySelector('#u')
+    // if(input.innerHTML){
+    //     alert('emm')
+    // }
+            // if ($('#u').value){
+        //     alert('right')
+        // }
+
+
+    $(function(){
+        $('#load_form').submit(function(e) {
+            e.preventDefault()
+            let data = $(this).serialize()
+            $.ajax({
+                type: 'POST',
+                url:'http://127.0.0.1:8080/login',
+                data: {
+                    data: data
+                },
+                success:function(res) {
+                    console.log(res)
+                }
+            })
+        })
     })
 </script>
 </body>
