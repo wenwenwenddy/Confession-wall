@@ -153,4 +153,7 @@ public class CommentClass {
             SQLConn.closeStmt(psqlUpdate);
         }
     }
+
+    private CommentClass() {
+    }
 }
