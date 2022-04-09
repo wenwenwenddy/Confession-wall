@@ -26,9 +26,7 @@ public class RegisterServlet extends HttpServlet {
         ServletOutputStream out = resp.getOutputStream();
 
         String username = req.getParameter("username");
-        System.out.println(username);
         String password = req.getParameter("password");
-        System.out.println(password);
 
         Connection conn = SQLConn.conn();
         String res = UserClass.register(conn, username, password);

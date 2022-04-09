@@ -27,9 +27,7 @@ public class LoginServlet extends HttpServlet {
         ServletOutputStream out = resp.getOutputStream();
 
         String username = req.getParameter("username");
-        System.out.println(username);
         String password = req.getParameter("password");
-        System.out.println(password);
 
         Connection conn = SQLConn.conn();
         String res = UserClass.login(conn, username, password);
