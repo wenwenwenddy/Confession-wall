@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.ArrayList;
 
 /**
  * @author Patrick_Star
@@ -20,7 +19,25 @@ import java.util.ArrayList;
  */
 public class LoginServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        doPost(req, resp);
+        resp.setContentType("application/json;charset=utf-8");
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Methods", "GET,POST");
+
+        ObjectMapper OM = new ObjectMapper();
+        ServletOutputStream out = resp.getOutputStream();
+
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+
+        Connection conn = SQLConn.conn();
+        String res = UserClass.login(conn, username, password);
+        Cookie cookie = new Cookie("name", username);
+        resp.addCookie(cookie);
+
+        SQLConn.disConn(conn);
+
+        MessageBean jsonOut = new MessageBean(res);
+        out.print(OM.writeValueAsString(jsonOut));
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
