@@ -1,5 +1,19 @@
 # Confession-wall
 
+# develop log
+
+## 1st week
+
+04/05/2022 - 04/12/2022
+
+### client
+
+accomplish login and register features
+
+### server
+
+accomplish all features except Cookie
+
 # MySQL
 
 ```
